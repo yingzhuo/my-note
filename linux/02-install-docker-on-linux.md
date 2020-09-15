@@ -33,7 +33,7 @@ sudo usermod -aG docker $(whoami)
 #### CentOS
 
 ```bash
-# 删除就版本 (可选)
+# 删除旧版本 (可选)
 sudo yum remove docker \
                   docker-client \
                   docker-client-latest \
@@ -75,6 +75,10 @@ sudo usermod -aG docker $(whoami)
 sudo systemctl daemon-reload
 sudo systemctl restart docker.service
 ```
+
+#### 其他
+
+建议一并安装[docker-compose](https://docs.docker.com/compose/install/)
 
 #### 参考
 
