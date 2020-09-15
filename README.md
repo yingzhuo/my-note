@@ -1,0 +1,3 @@
+# my-note
+
+* [Linux](./linux)
