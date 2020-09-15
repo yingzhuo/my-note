@@ -69,6 +69,13 @@ sudo usermod -aG docker $(whoami)
 }
 ```
 
+不要忘记重启docker服务使配置生效
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart docker.service
+```
+
 #### 参考
 
 * [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
