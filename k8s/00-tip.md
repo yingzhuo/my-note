@@ -13,3 +13,36 @@ kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```bash
 - --service-node-port-range=1-65535
 ```
+
+### 为私有镜像仓库生成`ImagePullSecret`
+
+请使用如下脚本 ↓↓↓↓
+
+```bash
+#!/bin/bash
+
+# 生成secret
+# 最后一个参数 --docker-email 是可选的，只是用用户名和密码也行
+kubectl create secret docker-registry regcred \
+    --docker-server=<your-registry-server> \
+    --docker-username=<your-name> \
+    --docker-password=<your-pword> \
+    --docker-email=<your-email>
+
+# 查看
+kubectl get secret regcred -o yaml
+
+# 删除不用的secret
+kubectl get secret regcred -o yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harbor
+  namespace: default
+data:
+  .dockerconfigjson: "<secret>"
+type: kubernetes.io/dockerconfigjson
+```
