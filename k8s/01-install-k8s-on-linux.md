@@ -51,8 +51,6 @@ gpg --keyserver keyserver.ubuntu.com --recv-keys BA07F4FB
 gpg --export --armor BA07F4FB | sudo apt-key add -
 sudo apt-get update
 
-sudo apt-get update
-
 sudo apt-get install kubeadm kubelet kubectl -y
 ```
 
