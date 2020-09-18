@@ -321,7 +321,7 @@ kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
     --discovery-token-ca-cert-hash sha256:9a336bc2dfad45db42521e1f2d55f129f9adb5ffa24187b6710d778f88abaeba
 ```
 
-安装网络add-on，比者使用的是`weave`
+安装网络add-on，笔者使用的是`weave`
 
 ```bash
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
@@ -348,6 +348,22 @@ kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+#### (9) 确认安装结果
+
+```text
+❯ kubectl get node -o wide
+NAME      STATUS   ROLES    AGE   VERSION   INTERNAL-IP      EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION       CONTAINER-RUNTIME
+bear      Ready    master   18h   v1.19.1   192.168.99.113   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+dog       Ready    <none>   17h   v1.19.1   192.168.99.126   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+fox       Ready    <none>   18h   v1.19.1   192.168.99.122   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+jackal    Ready    <none>   17h   v1.19.1   192.168.99.125   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+leopard   Ready    <none>   18h   v1.19.1   192.168.99.123   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+lion      Ready    master   18h   v1.19.1   192.168.99.112   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+mule      Ready    <none>   18h   v1.19.1   192.168.99.116   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+panda     Ready    <none>   17h   v1.19.1   192.168.99.124   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
+tiger     Ready    master   18h   v1.19.1   192.168.99.111   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
 ```
 
 #### 参考
