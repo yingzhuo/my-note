@@ -134,19 +134,136 @@ SELINUX=disabled
 
 #### (5) 通过"Keepalived"和"HAProxy" 构建搞可用集群。
 
+三台机器必须安装软件
+
+```bash
+sudo apt-get install keepalived haproxy -y
+```
+
 * master1 为Keepalived的MASTER 配置文件`/etc/keepalived/keepalived.conf`
 
 ```conf
+! Configuration File for keepalived
+
+# 全局配置
+global_defs {
+    keepalived_script {
+        script_user root root
+    }
+}
+
+# 检查脚本以确认haproxy是否在正常工作
+vrrp_script chk_haproxy {
+    script "/usr/bin/killall -0 haproxy"
+    interval 2
+    weight 2
+}
+
+# Configuration for Virtual Interface
+vrrp_instance LB_VIP {
+    state MASTER  #角色
+    interface ens160 #网卡
+    virtual_router_id 54
+    priority 100  #权值
+    mcast_src_ip 192.168.99.111 #真实IP
+
+    authentication {
+        auth_type PASS
+        auth_pass haproxy123456
+    }
+
+    track_script {
+        chk_haproxy
+    }
+
+    virtual_ipaddress {
+        192.168.99.250  #虚拟IP
+    }
+}
 ```
 
 * master2 为Keepalived的BACKUP 配置文件`/etc/keepalived/keepalived.conf`
 
 ```conf
+! Configuration File for keepalived
+
+# 全局配置
+global_defs {
+    keepalived_script {
+        script_user root root
+    }
+}
+
+# 检查脚本以确认haproxy是否在正常工作
+vrrp_script chk_haproxy {
+    script "/usr/bin/killall -0 haproxy"
+    interval 2
+    weight 2
+}
+
+# Configuration for Virtual Interface
+vrrp_instance LB_VIP {
+    state BACKUP  #角色
+    interface ens160 #网卡
+    virtual_router_id 54
+    priority 90  #权值
+    mcast_src_ip 192.168.99.112 #真实IP
+
+    authentication {
+        auth_type PASS
+        auth_pass haproxy123456
+    }
+
+    track_script {
+        chk_haproxy
+    }
+
+    virtual_ipaddress {
+        192.168.99.250  #虚拟IP
+    }
+}
 ```
 
 * master3 为Keepalived的BACKUP 配置文件`/etc/keepalived/keepalived.conf`
 
 ```conf
+! Configuration File for keepalived
+
+# 全局配置
+global_defs {
+    keepalived_script {
+        script_user root root
+    }
+}
+
+# 检查脚本以确认haproxy是否在正常工作
+vrrp_script chk_haproxy {
+    script "/usr/bin/killall -0 haproxy"
+    interval 2
+    weight 2
+}
+
+# Configuration for Virtual Interface
+vrrp_instance LB_VIP {
+    state BACKUP #角色
+    interface ens160 #网卡
+    virtual_router_id 54
+    priority 80  #权值
+    mcast_src_ip 192.168.99.113 #真实IP
+
+    authentication {
+        auth_type PASS
+        auth_pass haproxy123456
+    }
+
+    track_script {
+        chk_haproxy
+    }
+
+    virtual_ipaddress {
+        192.168.99.250  #虚拟IP
+    }
+}
 ```
 
 三台机器都要启动 keepalived
@@ -154,6 +271,83 @@ SELINUX=disabled
 ```bash
 sudo systemctl enable --now haproxy.service
 sudo systemctl enable --now keepalived.service
+```
+
+#### (6) 初始化master
+
+在master1上执行:
+
+```bash
+kubeadm init \
+    --kubernetes-version=v1.19.1 \
+    --control-plane-endpoint=192.168.99.250:6443 \
+    --image-repository=registry.cn-shanghai.aliyuncs.com/yingzhuo \
+    --token=abcdef.0123456789abcdef \
+    --token-ttl=0 \
+    --upload-certs | tee ~/kubeadm.init.log
+```
+
+如果看到诸如以下的输出，则说明第一个master节点正常启动了。
+
+```text
+...
+...
+...
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of the control-plane node running the following command on each as root:
+
+  kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:9a336bc2dfad45db42521e1f2d55f129f9adb5ffa24187b6710d778f88abaeba \
+    --control-plane --certificate-key 13891781cdf0cb2bbe2515b6b3fbd2119eb9efee8ebdd1faf9caeff55d1533ed
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:9a336bc2dfad45db42521e1f2d55f129f9adb5ffa24187b6710d778f88abaeba
+```
+
+安装网络add-on，比者使用的是`weave`
+
+```bash
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+```
+
+待网络插件正常安装好以后，master2和master3应当加入集群。
+
+```bash
+  kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:9a336bc2dfad45db42521e1f2d55f129f9adb5ffa24187b6710d778f88abaeba \
+    --control-plane --certificate-key 13891781cdf0cb2bbe2515b6b3fbd2119eb9efee8ebdd1faf9caeff55d1533ed
+```
+
+#### (7) worker节点加入集群
+
+```bash
+kubeadm join 192.168.99.250:6443 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:9a336bc2dfad45db42521e1f2d55f129f9adb5ffa24187b6710d778f88abaeba
+```
+
+#### (8) 初始化kubectl所需的配置文件
+
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 #### 参考
