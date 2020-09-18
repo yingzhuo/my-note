@@ -132,7 +132,7 @@ SELINUX=disabled
 
 **CentOS下务必要重启**
 
-#### (5) 通过"Keepalived"和"HAProxy" 构建搞可用集群。
+#### (5) 通过"Keepalived"和"HAProxy" 构建高可用集群。
 
 三台机器必须安装软件
 
@@ -286,6 +286,8 @@ kubeadm init \
     --token-ttl=0 \
     --upload-certs | tee ~/kubeadm.init.log
 ```
+
+**注意**: `192.168.99.250` 事由keepalived生成的虚拟IP。
 
 如果看到诸如以下的输出，则说明第一个master节点正常启动了。
 
