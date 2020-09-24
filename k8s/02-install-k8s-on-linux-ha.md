@@ -87,8 +87,8 @@ sudo yum install kubectl kubeadm kubelet -y
 安装好以后，一定要检查kubelet守护进程是否正常启动
 
 ```bash
-udo systemctl start kubelet.service
-udo systemctl enable kubelet.service
+sudo systemctl start kubelet.service
+sudo systemctl enable kubelet.service
 ```
 
 #### (4) 前期准备
