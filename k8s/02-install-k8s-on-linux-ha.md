@@ -287,7 +287,7 @@ kubeadm init \
     --upload-certs | tee ~/kubeadm.init.log
 ```
 
-**注意**: `192.168.99.250` 事由keepalived生成的虚拟IP。
+**注意**: `192.168.99.250` 是由keepalived生成的虚拟IP。
 
 如果看到诸如以下的输出，则说明第一个master节点正常启动了。
 
