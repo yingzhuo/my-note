@@ -6,3 +6,4 @@
 * [在Linux上安装DockerEngine](./02-install-docker-on-linux.md)
 * [在Linux上安装samba服务](./03-install-samba-on-linux.md)
 * [在Linux上安装harbor服务](./04-install-harbor-on-linux.md)
+* [在Linux上通过Systemd启用/etc/rc.local](./05-enable-rc.local-on-linux.md)
