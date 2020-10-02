@@ -2,8 +2,8 @@
 
 #### 假设
 
-(1) 应用名称playground
-(2) 安装位置`/var/lib/playground/playground.jar`
+* (1) 应用名称playground
+* (2) 安装位置`/var/lib/playground/playground.jar`
 
 #### 安装
 

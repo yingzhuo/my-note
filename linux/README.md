@@ -8,3 +8,4 @@
 * [在Linux上安装harbor服务](./04-install-harbor-on-linux.md)
 * [在Linux上通过Systemd启用/etc/rc.local](./05-enable-rc.local-on-linux.md)
 * [SpringBoot作为systemd服务安装到Linux](./06-install-springboot-app-as-a-systemd-service.md)
+* [在不需要密码的情况下运行sudo命令](./07-enable-sudo-without-password-in-linux.md)
