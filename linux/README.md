@@ -11,3 +11,4 @@
 * [在不需要密码的情况下运行sudo命令](./07-enable-sudo-without-password-in-linux.md)
 * [更改hostname](./08-change-hostname.md)
 * [更改时区](./09-change-timezone.md)
+* [在Linux上安装Jenkins](./10-install-jekins-on-ubuntu.md)
