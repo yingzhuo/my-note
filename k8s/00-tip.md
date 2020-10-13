@@ -1,4 +1,19 @@
-### 删除Master的节点的污点使POD可以调度到其上。
+### 安装kubeadm时指定版本号
+
+```bash
+# 删除旧版本
+sudo apt autoremove --purge kubeadm kubectl kubelet kubernetes-cni
+
+# 指定版本号安装
+sudo apt-get install -y kubeadm=1.18.9-00 kubelet=1.18.9-00 kubectl=1.18.9-00
+
+# 锁定版本号
+sudo apt-mark hold kubeadm kubelet kubectl
+sudo apt-mark showhold
+# sudo apt-mark unhold kubeadm kubelet kubectl 解除锁定
+```
+
+### 删除Master的节点的污点使POD可以调度到其上
 
 ```bash
 kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-

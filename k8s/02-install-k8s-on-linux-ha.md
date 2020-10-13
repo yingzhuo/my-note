@@ -368,6 +368,11 @@ panda     Ready    <none>   17h   v1.19.1   192.168.99.124   <none>        Ubunt
 tiger     Ready    master   18h   v1.19.1   192.168.99.111   <none>        Ubuntu 18.04.5 LTS   4.15.0-118-generic   docker://19.3.12
 ```
 
+#### 其他小技巧
+
+* [修改NodePort Range](https://github.com/yingzhuo/my-note/blob/master/k8s/00-tip.md#%E4%BF%AE%E6%94%B9nodeport-range)
+* [删除Master的节点的污点使POD可以调度到其上](https://github.com/yingzhuo/my-note/blob/master/k8s/00-tip.md#%E5%88%A0%E9%99%A4master%E7%9A%84%E8%8A%82%E7%82%B9%E7%9A%84%E6%B1%A1%E7%82%B9%E4%BD%BFpod%E5%8F%AF%E4%BB%A5%E8%B0%83%E5%BA%A6%E5%88%B0%E5%85%B6%E4%B8%8A)
+
 #### 参考
 
 * [官方文档](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/)
