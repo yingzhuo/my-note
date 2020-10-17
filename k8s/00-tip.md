@@ -5,7 +5,7 @@
 sudo apt autoremove --purge kubeadm kubectl kubelet kubernetes-cni
 
 # 指定版本号安装
-sudo apt-get install -y kubeadm=1.18.9-00 kubelet=1.18.9-00 kubectl=1.18.9-00
+sudo apt-get install -y kubeadm=1.18.10-00 kubelet=1.18.10-00 kubectl=1.18.10-00
 
 # 锁定版本号
 sudo apt-mark hold kubeadm kubelet kubectl
@@ -31,7 +31,7 @@ kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 
 如果你的集群有多个master节点，每一个master节点都需要此操作。
 
-### ✨为私有镜像仓库生成`ImagePullSecret`
+### ✨为私有镜像仓库生成`ImagePullSecret`✨
 
 请使用如下脚本 ↓↓↓↓
 
