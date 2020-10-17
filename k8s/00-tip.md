@@ -1,4 +1,4 @@
-### 安装kubeadm时指定版本号
+### ✨安装kubeadm时指定版本号✨
 
 ```bash
 # 删除旧版本
@@ -13,13 +13,13 @@ sudo apt-mark showhold
 # sudo apt-mark unhold kubeadm kubelet kubectl 解除锁定
 ```
 
-### 删除Master的节点的污点使POD可以调度到其上
+### ✨删除Master的节点的污点使POD可以调度到其上✨
 
 ```bash
 kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```
 
-### 修改NodePort Range
+### ✨修改NodePort Range✨
 
 编辑 `/etc/kubernetes/manifests/kube-apiserver.yaml`
 
@@ -29,7 +29,9 @@ kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 - --service-node-port-range=1-65535
 ```
 
-### 为私有镜像仓库生成`ImagePullSecret`
+如果你的集群有多个master节点，每一个master节点都需要此操作。
+
+### ✨为私有镜像仓库生成`ImagePullSecret`
 
 请使用如下脚本 ↓↓↓↓
 
