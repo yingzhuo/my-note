@@ -13,3 +13,4 @@
 * [更改时区](./09-change-timezone.md)
 * [在Linux上安装Jenkins](./10-install-jekins-on-ubuntu.md)
 * [在Linux上安装MariaDB](./11-install-mariadb-on-ubuntu.md)
+* [rsync命令在Linux的应用](./12-rsync-command-for-copy.md)
