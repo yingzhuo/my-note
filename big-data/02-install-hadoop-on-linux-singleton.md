@@ -72,7 +72,7 @@ vim $HADOOP_HOME/etc/hadoop/core-site.xml
     </property>
     <property>
         <name>fs.default.name</name>
-        <value>hdfs://127.0.0.1:9000</value>
+        <value>hdfs://127.0.0.1:9000</value>  <!-- 如果使用虚拟机需要换成虚拟机的地址 -->
     </property>
 </configuration>
 ```
@@ -152,14 +152,14 @@ vim $HADOOP_HOME/etc/hadoop/yarn-site.xml
     </property>
     <property>
         <name>yarn.resourcemanager.hostname</name>
-        <value>127.0.0.1</value>
+        <value>127.0.0.1</value>    <!-- 如果使用虚拟机需要换成虚拟机的地址 -->
     </property>
     <property>
         <name>yarn.acl.enable</name>
         <value>0</value>
     </property>
     <property>
-        <name>yarn.nodemanager.env-whitelist</name>■■■
+        <name>yarn.nodemanager.env-whitelist</name>
         <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PERPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
     </property>
 </configuration>
