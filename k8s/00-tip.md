@@ -76,7 +76,7 @@ type: kubernetes.io/dockerconfigjson
 ```bash
 #!/bin/bash -e
 
-for host in tiger lion bear mule fox jackal panda jackal dog
+for host in tiger lion bear mule fox leopard panda jackal dog
 do
     echo "[INFO] clean up server: $host"
 
