@@ -13,11 +13,15 @@ sudo apt-mark showhold
 # sudo apt-mark unhold kubeadm kubelet kubectl 解除锁定
 ```
 
+<hr />
+
 ### ✨删除Master的节点的污点使POD可以调度到其上✨
 
 ```bash
 kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```
+
+<hr />
 
 ### ✨修改NodePort Range✨
 
@@ -30,6 +34,8 @@ kubectl taint node <node-name> node-role.kubernetes.io/master:NoSchedule-
 ```
 
 如果你的集群有多个master节点，每一个master节点都需要此操作。
+
+<hr />
 
 ### ✨为私有镜像仓库生成`ImagePullSecret`✨
 
@@ -62,4 +68,26 @@ metadata:
 data:
   .dockerconfigjson: "<secret>"
 type: kubernetes.io/dockerconfigjson
+```
+<hr />
+
+### ✨清理集群中所有机器✨
+
+```bash
+#!/bin/bash -e
+
+for host in tiger lion bear mule fox jackal panda jackal dog
+do
+    echo "[INFO] clean up server: $host"
+
+    ssh "ccae@$host" "
+        # 清理docker
+        sudo docker system prune -a -f &> /dev/null || true
+
+        # 清理apt-cache
+        if [ ! -z "$(ls -A /var/cache/apt/)" ]; then
+            sudo rm -rf /var/cache/apt/*
+        fi
+    "
+done
 ```
