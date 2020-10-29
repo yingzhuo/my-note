@@ -2,8 +2,8 @@
 
 #### (1) 准备机器3台
 
-hostname    | ip address            | OS                        | user:group               | role
-----------|---------------|----------------|-----------------|--------------------------------------------
+hostname    | ip address         | OS                 | user:group           | role
+----------|----------------------|--------------------|----------------------|--------------------------------------------
 hadoop000  | 192.168.99.127      | Ubuntu 20.04.1 LTS | hadoop:hadoop        | NameNode,DataNode,NodeManager,JobHistoryServer
 hadoop001  | 192.168.99.128      | Ubuntu 20.04.1 LTS | hadoop:hadoop        | DataNode,ResourceManager,NodeManager,DataNode
 hadoop002  | 192.168.99.129      | Ubuntu 20.04.1 LTS | hadoop:hadoop        | SecondaryNameNode,NodeManager,DataNode
@@ -34,13 +34,13 @@ chmod 400 ~/.ssh/id_rsa
 
 ####(5)安装HADOOP
 
-下载`hadoop-3.2.1.tar.gz`并解压缩到`~hadoop/hadoop-3.2.1/`并配置环境变量
+下载`hadoop-3.2.1.tar.gz`并解压缩到`/var/lib/hadoop/`并配置环境变量，并使其生效。
 
 ```bash
 # Hadoop
-export HADOOP_HOME=/home/hadoop/hadoop-3.2.1
-export PATH=$PATH:$HADOOP_HOME/bin
-export PATH=$PATH:$HADOOP_HOME/sbin
+export HADOOP_HOME=/var/lib/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+export HADOOP_DATA_DIR=/var/data/hadoop
 ```
 
 #### (6) 为hadoop设置JAVA_HOME
@@ -54,10 +54,9 @@ export PATH=$PATH:$HADOOP_HOME/sbin
 ```bash
 #!/bin/bash -e
 
-rm -rf ~hadoop/hadoop-data/
-mkdir -p ~hadoop/hadoop-data/name/
-mkdir -p ~hadoop/hadoop-data/data/
-mkdir -p ~hadoop/hadoop-data/namesecondary/
+rm -rf $HADOOP_DATA_DIR
+mkdir -p $HADOOP_DATA_DIR
+sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
 ```
 
 3台机器都需要创建数据目录。
@@ -180,7 +179,13 @@ hadoop001
 hadoop002
 ```
 
-#### (9) 启动集群
+#### (9) 初始化NameNode
+
+```bash
+hdfs namenode -format
+```
+
+#### (10) 启动集群
 
 在`hadoop000`上:
 
