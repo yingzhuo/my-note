@@ -62,11 +62,15 @@ vim $HADOOP_HOME/etc/hadoop/core-site.xml
 <configuration>
     <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://10.211.55.200:9000</value> <!-- 如果使用虚拟机需要换成虚拟机的地址 -->
+        <value>hdfs://127.0.0.1:9000</value>
     </property>
     <property>
         <name>hadoop.tmp.dir</name>
         <value>/data/hadoop</value>
+    </property>
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>hadoop</value>  <!-- linux's username -->
     </property>
 </configuration>
 ```
