@@ -9,7 +9,19 @@
 #### (2) 创建用户
 
 ```bash
-sudo adduser -m hadoop
+#!/bin/bash
+
+USERNAME=hadoop
+PASSWORD=hadoop
+
+useradd \
+  --create-home \
+  --home-dir=/home/$USERNAME \
+  --password=$PASSWORD \
+  --shell=/bin/zsh \
+  $USERNAME
+
+usermod -aG $USERNAME,sudo $USERNAME
 ```
 
 ```bash
