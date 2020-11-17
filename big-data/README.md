@@ -6,3 +6,4 @@
 * [在Linux安装Hadoop (伪分布)](./02-install-hadoop-on-linux-singleton.md)
 * [在Linux安装Zookeeper (standalone)](./03-install-zookeeper-on-linux-standalone.md)
 * [在Linux安装Zookeeper (集群)](./04-install-zookeeper-on-linux-cluster.md)
+* [基于Hadoop集群安装Hive服务](./05-install-hive-on-linux.md)
