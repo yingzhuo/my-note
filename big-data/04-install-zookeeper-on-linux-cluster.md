@@ -70,20 +70,22 @@ server.2=192.168.99.128:2888:3888
 server.3=192.168.99.129:2888:3888
 ```
 
-#### (5) 启动
+#### (5) 启动 / 关闭
 
 ```bash
 $ZOOKEEPER_HOME/bin/zkServer.sh start
 $ZOOKEEPER_HOME/bin/zkServer.sh status
+$ZOOKEEPER_HOME/bin/zkServer.sh stop
 ```
 
-#### (6) 关闭JMS
+#### (6) 其他
 
 文件: `$ZOOKEEPER_HOME/conf/zookeeper-env.sh`
 
 ```text
-JMXLOCALONLY=false
+# 关闭JMS
 JMXDISABLE=true
+JMXLOCALONLY=false
 JMXPORT=4048
 JMXAUTH=false
 JMXSSL=false
