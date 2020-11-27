@@ -64,6 +64,9 @@ clientPort=2181
 #metricsProvider.httpPort=7000
 #metricsProvider.exportJvmInfo=true
 
+# Admin Server
+admin.enableServer=false
+
 ## Cluster Settings
 server.1=192.168.99.127:2888:3888
 server.2=192.168.99.128:2888:3888
@@ -89,4 +92,29 @@ JMXLOCALONLY=false
 JMXPORT=4048
 JMXAUTH=false
 JMXSSL=false
+```
+
+#### (7) systemd
+
+`/etc/systemd/system/zookeeper.service`
+
+```service
+[Unit]
+Description=Apache Zookeeper server
+Documentation=http://zookeeper.apache.org
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+Environment="JMXDISABLE=true"
+Environment="JMXLOCALONLY=false"
+Environment="JMXPORT=4048"
+Environment="JMXAUTH=false"
+Environment="JMXSSL=false"
+ExecStart=/var/lib/zookeeper/bin/zkServer.sh start-foreground
+ExecStop=/var/lib/zookeeper/bin/zkServer.sh stop
+
+[Install]
+WantedBy=multi-user.target
 ```

@@ -170,12 +170,23 @@ nohup kafka-server-start.sh /var/lib/kafka/config/server.properties &> /dev/null
 kafka-server-stop.sh
 ```
 
-文件: `$ZOOKEEPER_HOME/conf/zookeeper-env.sh`
+#### (7) systemd
 
-```text
-JMXLOCALONLY=false
-JMXDISABLE=true
-JMXPORT=4048
-JMXAUTH=false
-JMXSSL=false
+`/etc/systemd/system/kafka.service`
+
+```service
+[Unit]
+Description=Apache Kafka server
+Documentation=http://kafka.apache.org
+Requires=network.target zookeeper.service
+After=network.target zookeeper.service
+
+[Service]
+Type=simple
+Environment="KAFKA_HEAP_OPTS=-Xmx512M -Xms256M"
+ExecStart=/var/lib/kafka/bin/kafka-server-start.sh /var/lib/kafka/config/server.properties
+ExecStop=/var/lib/kafka/bin/kafka-server-stop.sh
+
+[Install]
+WantedBy=multi-user.target
 ```
