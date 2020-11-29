@@ -37,7 +37,6 @@ export PATH=$PATH:$HIVE_HOME/bin
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
         <value>jdbc:mysql://192.168.99.114:3306/hive_metastore?useSSL=false</value>
@@ -126,9 +125,18 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_CONF_DIR:$TEZ_JARS/*:$TEZ_JARS/li
 schematool -initSchema -dbType mysql -verbose
 ```
 
-#### (6) 准备tez必要的依赖
+#### (6) 准备tez必要的依赖和HDFS所需的目录
 
 上传`$TEZ_HOME/share/tez.tar.gz`到HDFS的目录`/tez`
+
+```bash
+hadoop fs -put $TEZ_HOME/share/tez.tar.gz /tez
+hadoop fs -mkdir -p /tmp
+hadoop fs -chmod g+w /tmp
+
+hadoop fs -mkdir -p /user/hive/warehouse
+hadoop fs -chmod g+w /user/hive/warehouse
+```
 
 #### (7) 启动hive
 

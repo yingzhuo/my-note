@@ -114,6 +114,12 @@ sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
         <name>dfs.namenode.secondary.http-address</name>
         <value>hadoop002:9868</value>
     </property>
+
+    <!-- 默认值依然是30秒，此配置为了解决HIVE的bug -->
+    <property>
+        <name>dfs.client.datanode-restart.timeout</name>
+        <value>30</value>
+    </property>
 </configuration>
 ```
 

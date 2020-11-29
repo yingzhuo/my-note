@@ -103,6 +103,12 @@ vim $HADOOP_HOME/etc/hadoop/hdfs-site.xml
         <name>dfs.replication</name>
         <value>1</value>
     </property>
+
+    <!-- 默认值依然是30秒，此配置为了解决HIVE的bug -->
+    <property>
+        <name>dfs.client.datanode-restart.timeout</name>
+        <value>30</value>
+    </property>
 </configuration>
 ```
 
