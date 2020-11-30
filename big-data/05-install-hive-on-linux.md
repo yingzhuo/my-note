@@ -22,7 +22,7 @@ export HIVE_HOME=/var/lib/hive
 export PATH=$PATH:$HIVE_HOME/bin
 ```
 
-#### (3) 调整
+#### (3) 调整杂项
 
 * 删除`$HIVE_HOME/lib/log4j-sfl4j-impl-x.x.x.jar`
 * 拷贝java-jdbc-driver到`$HIVE_HOME/lib`
@@ -114,7 +114,7 @@ export PATH=$PATH:$HIVE_HOME/bin
 ```bash
 export TEZ_CONF_DIR=$HADOOP_HOME/etc/hadoop
 export TEZ_JARS=/var/lib/tez
-export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$TEZ_CONF_DIR:$TEZ_JARS/*:$TEZ_JARS/lib/*
+export HADOOP_CLASSPATH="$HADOOP_CLASSPATH:$TEZ_CONF_DIR:$TEZ_JARS/*:$TEZ_JARS/lib/*"
 ```
 
 #### (5) 初始化MySQL表结构
@@ -130,6 +130,7 @@ schematool -initSchema -dbType mysql -verbose
 上传`$TEZ_HOME/share/tez.tar.gz`到HDFS的目录`/tez`
 
 ```bash
+hadoop fs -mkdir -p /tez
 hadoop fs -put $TEZ_HOME/share/tez.tar.gz /tez
 hadoop fs -mkdir -p /tmp
 hadoop fs -chmod g+w /tmp

@@ -45,7 +45,10 @@ export HADOOP_DATA_DIR=/var/data/hadoop
 
 #### (6) 为hadoop设置JAVA_HOME
 
-编辑`$HADOOP_HOME/etc/hadoop/hadoop-env.sh` 指定JAVA_HOME
+编辑`$HADOOP_HOME/etc/hadoop/hadoop-env.sh` 指定以下几项
+
+* `JAVA_HOME`
+* `HADOOP_HOME`
 
 #### (7) 创建数据目录
 
@@ -75,7 +78,7 @@ sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
     </property>
     <property>
         <name>hadoop.data.dir</name>
-        <value>/home/hadoop/hadoop-data</value>
+        <value>/var/data/hadoop</value> <!-- 务必按实际情况修改 -->
     </property>
     <property>
         <name>hadoop.proxyuser.hadoop.hosts</name>

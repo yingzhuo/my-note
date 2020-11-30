@@ -58,7 +58,10 @@ export HADOOP_OPTS="-Djava.library.path=$HADOOP_COMMON_LIB_NATIVE_DIR"
 vim $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 ```
 
-在这里务必要配置好`JAVA_HOME`
+在这里务必要配置好以下各项
+
+* `JAVA_HOME`
+* `HADOOP_HOME`
 
 ##### 5.2
 
@@ -78,7 +81,7 @@ vim $HADOOP_HOME/etc/hadoop/core-site.xml
     </property>
     <property>
         <name>hadoop.tmp.dir</name>
-        <value>/data/hadoop</value>
+        <value>/data/hadoop</value> <!-- 务必按实际情况修改 -->
     </property>
     <property>
         <name>hadoop.http.staticuser.user</name>
