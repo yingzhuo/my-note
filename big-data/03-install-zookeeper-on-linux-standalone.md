@@ -56,6 +56,9 @@ clientPort=2181
 #metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider
 #metricsProvider.httpPort=7000
 #metricsProvider.exportJvmInfo=true
+
+# Admin Server
+admin.enableServer=false
 ```
 
 #### (4) 启动
