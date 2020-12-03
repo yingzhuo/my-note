@@ -7,37 +7,82 @@
 
 #### (2) 生成签名
 
-准备文件`/tmp/node.json`如下:
-
-```json
-{
-  "CN": "node",   <-- 节点名称,需要按实际情况修改
-  "hosts": [
-    "10.211.55.3",  <-- 广播地址,需要按实际情况修改
-    "localhost",
-    "127.0.0.1"
-  ],
-  "key": {
-    "algo": "rsa",
-    "size": 2048
-  }
-}
-```
-
 可使用一下脚本放在`/tmp`下并执行
 
 ```bash
 #!/usr/bin/env bash
 
 cd /tmp
-echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
-echo '{"signing":{"default":{"expiry":"876000h","usages":["signing","key encipherment","server auth","client auth"]}}}' > ca-config.json
 
-cat node.json | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem  - | cfssljson -bare node
+# 失效时间为100年
+cat > ca-config.json << EOF
+{
+  "signing": {
+    "default": {
+      "expiry": "876000h"
+    },
+    "profiles": {
+      "www": {
+         "expiry": "876000h",
+         "usages": [
+            "signing",
+            "key encipherment",
+            "server auth",
+            "client auth"
+        ]
+      }
+    }
+  }
+}
+EOF
+
+cat > ca-csr.json << EOF
+{
+    "CN": "etcd CA",
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "CN",
+            "L": "Shanghai",
+            "ST": "Shanghai"
+        }
+    ]
+}
+EOF
+
+cfssl gencert -initca ca-csr.json | cfssljson -bare ca -
+
+# hosts里要包换集群所有的IP地址
+cat > server-csr.json << EOF
+{
+    "CN": "etcd",
+    "hosts": [
+        "10.211.55.3"
+    ],
+    "key": {
+        "algo": "rsa",
+        "size": 2048
+    },
+    "names": [
+        {
+            "C": "CN",
+            "L": "Shanghai",
+            "ST": "Shanghai"
+        }
+    ]
+}
+EOF
+
+cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=www server-csr.json | cfssljson -bare server
 
 mv ca.pem ca.crt
-mv node-key.pem server.key
-mv node.pem server.crt
+mv server-key.pem server.key
+mv server.pem server.crt
+
+rm -rf *.json *.csr *.pem
 ```
 
 脚本执行之后，`ca.crt`, `server.key`, `server.crt`有用，保存到`$ETCD_HOME/certs/`，其他文件无用，删除即可。
@@ -47,21 +92,33 @@ mv node.pem server.crt
 准备配置文件 `$ETCD_HOME/etcd.conf`
 
 ```bash
+# [Member]
 ETCD_NAME=node
 ETCD_LISTEN_PEER_URLS="https://10.211.55.3:2380"
 ETCD_LISTEN_CLIENT_URLS="https://10.211.55.3:2379"
+
+# [Clustering]
 ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster"
-ETCD_INITIAL_CLUSTER="node=https://10.211.55.3:2380"   # 说是说搭建集群，其实我的集群只有一个节点
+ETCD_INITIAL_CLUSTER="node=https://10.211.55.3:2380"
+ETCD_INITIAL_CLUSTER_STATE="new"
 ETCD_INITIAL_ADVERTISE_PEER_URLS="https://10.211.55.3:2380"
+
+# [SSL]
 ETCD_ADVERTISE_CLIENT_URLS="https://10.211.55.3:2379"
 ETCD_TRUSTED_CA_FILE="/opt/etcd/certs/ca.crt"
 ETCD_KEY_FILE="/opt/etcd/certs/server.key"
 ETCD_CERT_FILE="/opt/etcd/certs/server.crt"
+
 ETCD_PEER_CLIENT_CERT_AUTH=true
 ETCD_PEER_TRUSTED_CA_FILE="/opt/etcd/certs/ca.crt"
 ETCD_PEER_KEY_FILE="/opt/etcd/certs/server.key"
 ETCD_PEER_CERT_FILE="/opt/etcd/certs/server.crt"
+
+# [Data]
 ETCD_DATA_DIR="/data/etcd"
+
+# [Log]
+# ETCD_LOGGER="zap"
 ```
 
 准备`/etc/systemd/system/etcd.service`
@@ -78,6 +135,8 @@ Type=simple
 EnvironmentFile=/opt/etcd/etcd.conf
 ExecStart=/opt/etcd/bin/etcd
 KillSignal=15
+Restart=on-failure
+LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
