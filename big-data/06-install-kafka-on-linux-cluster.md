@@ -25,7 +25,7 @@ chmod 777 /var/data/kafka
 
 #### (4) 配置
 
-`sudo vim $ZOOKEEPER_HOME/config/server.properties`
+`sudo vim $KAFKA_HOME/config/server.properties`
 
 ```properties
 # The id of the broker. This must be set to a unique integer for each broker.
