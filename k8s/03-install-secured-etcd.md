@@ -118,3 +118,16 @@ export ETCDCTL_KEY=/opt/etcd/certs/server.key
 | 29ae8f507898fed6 | started | node | http://10.211.55.3:2380 | https://10.211.55.3:2379 |      false |
 +------------------+---------+------+-------------------------+--------------------------+------------+
 ```
+
+#### (5) 设置密码
+
+```bash
+etcdctl user add root  # 命令行会要求你设置密码和确认密码
+etcdctl auth enable
+```
+
+如果要求使用密码登录环境变量应添加
+
+```bash
+export ETCDCTL_USER="<用户名>:<密码>"
+```
