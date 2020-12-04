@@ -18,3 +18,4 @@
 * [CentOS设置阿里源](14-centos-change-ali-repo-source.md)
 * [CentOS设置静态IP](15-centos-set-static-ipaddr.md)
 * [在Linux上通过编译安装的方式安装zsh](16-install-zsh-by-sourcecode.md)
+* [在Linux上通过编译安装的方式安装redis](17-compile-redis-on-linux.md)
