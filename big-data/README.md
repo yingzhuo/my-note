@@ -10,3 +10,4 @@
 * [在Linux上安装Kafka (集群)](06-install-kafka-on-linux-cluster.md)
 * [在Linux上安装ActiveMQ (集群)](07-install-activemq-on-linux-cluster.md)
 * [在Linux上安装Flume Agent](08-install-flume-on-linux.md)
+* [Flume配置文件模板](08-flume-agent-config-templates.md)

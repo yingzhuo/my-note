@@ -112,6 +112,12 @@ vim $HADOOP_HOME/etc/hadoop/hdfs-site.xml
         <name>dfs.client.datanode-restart.timeout</name>
         <value>30</value>
     </property>
+
+    <!-- 关闭权限检查 -->
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+    </property>
 </configuration>
 ```
 
