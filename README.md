@@ -1,6 +1,8 @@
 # my-note
 
-* [Linux](linux)
-* [Kubernetes](k8s)
-* [Docker](docker)
+我的笔记而已。
+
 * [BigData](big-data)
+* [Docker](docker)
+* [Kubernetes](k8s)
+* [Linux](linux)

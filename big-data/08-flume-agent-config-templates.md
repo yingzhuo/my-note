@@ -1,61 +1,121 @@
 ## Flume配置文件模板
 
-#### netcat -> logfile
-
 ```conf
-# ----------------------------------------
-# agent: a1
-# ----------
-#  nc -> logger
-# ----------------------------------------
 
-a1.sources = r1
-a1.channels = c1
-a1.sinks = k1
+myagent.sources = mysource
+myagent.channels = mychannel
+myagent.sinks = mysink
 
-a1.sources.r1.type = netcat
-a1.sources.r1.bind = localhost
-a1.sources.r1.port = 44444
-a1.sources.r1.channels = c1
+###############################################################################
+# Source
+###############################################################################
 
-a1.channels.c1.type = memory
-a1.channels.c1.capacity = 1024
+# ----
+# netcat
+# ----
+myagent.sources.mysource.type = netcat
+myagent.sources.mysource.bind = 0.0.0.0
+myagent.sources.mysource.port = 6666
 
-a1.sinks.k1.type = logger
-a1.sinks.k1.channel = c1
-```
+# ---
+# avro
+# ---
+myagent.sources.mysource.type = avro
+myagent.sources.mysource.bind = 0.0.0.0
+myagent.sources.mysource.port = 4141
 
-#### file -> hdfs
+###############################################################################
+# Interceptor
+###############################################################################
 
-```conf
-# ----------------------------------------
-# agent: a2
-# ----------
-#  file -> hdfs
-# ----------------------------------------
+# ---
+# static
+# ---
+myagent.sources.mysource.interceptors = i1
+myagent.sources.mysource.interceptors.i1.type = static
+myagent.sources.mysource.interceptors.i1.key = datacenter
+myagent.sources.mysource.interceptors.i1.value = NEW_YORK
 
-a2.sources = r2
-a2.channels = c2
-a2.sinks = k2
+###############################################################################
+# Channel Selector
+###############################################################################
 
-a2.sources.r2.type = exec
-a2.sources.r2.command = tail -F /var/log/playground/business/business-1.log
-a2.sources.r2.channels = c2
+# ---
+# replicating (default)
+# ---
+myagent.sources.mysource.selector.type = replicating
+# myagent.sources.mysource.selector.optional = mychannel
 
-a2.channels.c2.type = memory
-a2.channels.c2.capacity = 1024
+# ---
+# multiplexing 
+# ---
+myagent.sources.mysource.selector.type = multiplexing
+myagent.sources.mysource.selectorheader = state
+myagent.sources.mysource.selectormapping.CZ = c1
+myagent.sources.mysource.selectormapping.US = c2 c3
+myagent.sources.mysource.selectordefault = c4
 
-a2.sinks.k2.type = hdfs
-a2.sinks.k2.hdfs.path = hdfs://localhost:9000/flume/playground/%Y%m%d
-a2.sinks.k2.hdfs.useLocalTimeStamp = true
-a2.sinks.k2.hdfs.filePrefix = logs-
-a2.sinks.k2.hdfs.round = true
-a2.sinks.k2.hdfs.roundValue = 1
-a2.sinks.k2.hdfs.roundUnit = hour
-a2.sinks.k2.hdfs.batchSize = 100
-a2.sinks.k2.hdfs.fileType = DataStream
-a2.sinks.k2.hdfs.rollInterval = 60
-a2.sinks.k2.hdfs.rollSize = 134217700
-a2.sinks.k2.hdfs.rollCount = 0
-a2.sinks.k2.channel = c2
+###############################################################################
+# Channel
+###############################################################################
+
+# ---
+# memory
+# ---
+myagent.channels.mychannel.type = memory
+myagent.channels.mychannel.capacity = 1024
+
+# ---
+# kafka
+# ---
+myagent.channels.mychannel.type = org.apache.flume.channel.kafka.KafkaChannel
+myagent.channels.mychannel.kafka.bootstrap.servers = xxx.xxx.xx.xxx:9092,xxx.xxx.xx.xxx:9092,xxx.xxx.xx.xxx:9092
+myagent.channels.mychannel.kafka.topic = flume-channel
+myagent.channels.mychannel.kafka.group.id = flume
+
+###############################################################################
+# Sink
+###############################################################################
+
+# ---
+# logger
+# ---
+myagent.sinks.mysink.type = logger
+
+# ---
+# file roll
+# ---
+myagent.sinks.mysink.type = file_roll
+myagent.sinks.mysink.sink.directory = /var/log/flume
+
+# ---
+# avro
+# ---
+myagent.sinks.mysink.type = avro
+myagent.sinks.mysink.hostname = xxx.xxx.xx.xxx
+myagent.sinks.mysink.port = 6666
+
+# ---
+# null
+# ---
+myagent.sinks.mysink.type = null
+
+# ---
+# hdfs
+# ---
+myagent.sinks.mysink.type = hdfs
+myagent.sinks.mysink.hdfs.path = hdfs://xxx.xxx.xxx.xxx:8020/flume/%{application}/%{dir}/%Y-%m-%d
+myagent.sinks.mysink.hdfs.useLocalTimeStamp = true
+myagent.sinks.mysink.hdfs.fileType = DataStream
+myagent.sinks.mysink.hdfs.writeFormat = Text
+myagent.sinks.mysink.hdfs.round = true
+myagent.sinks.mysink.hdfs.rollInterval = 0
+myagent.sinks.mysink.hdfs.rollSize = 134217700
+myagent.sinks.mysink.hdfs.rollCount= 0
+
+###############################################################################
+# Assemble
+###############################################################################
+myagent.sources.mysource.channels = mychannel
+myagent.sinks.mysink.channel = mychannel
 ```
