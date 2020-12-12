@@ -20,44 +20,72 @@ export PATH=$PATH:FLUME_HOME/bin
 
 如果本机上已经安装好了Hadoop并已经有生效的环境变量。 应当删除`$FLUME_HOME/lib/guava-*.jar`。或升级其版本与Hadoop3依赖的guava版本一致。
 
-#### (4) 编写你的Agent
+如果需要，可以适当更新`$FLUME_HOME/conf/log4j.properties`
 
-这里只是所谓做一下演示 `$FLUME_HOME/agents/a1.conf`
+#### (4) 编写你的Agent配置文件
+
+这里只是所谓做一下演示 `$FLUME_HOME/myagent.conf`
 
 ```conf
-a1.sources = r1
-a1.channels = c1
-a1.sinks = k1
+myagent.sources = mysource
+myagent.channels = mychannel
+myagent.sinks = mysink
 
-a1.sources.r1.type = netcat
-a1.sources.r1.bind = localhost
-a1.sources.r1.port = 44444
-a1.sources.r1.channels = c1
+###############################################################################
+# Source(s)
+###############################################################################
+myagent.sources.mysource.type = avro
+myagent.sources.mysource.bind = 0.0.0.0
+myagent.sources.mysource.port = 4141
 
-a1.channels.c1.type = memory
-a1.channels.c1.capacity = 1024
+myagent.sources.mysource.selector.type = replicating
 
-a1.sinks.k1.type = logger
-a1.sinks.k1.channel = c1
+###############################################################################
+# Channel(s)
+###############################################################################
+
+# kafka 实现
+myagent.channels.mychannel.type = org.apache.flume.channel.kafka.KafkaChannel
+myagent.channels.mychannel.kafka.bootstrap.servers = 192.168.99.127:9092,192.168.99.128:9092,192.168.99.129:9092
+myagent.channels.mychannel.kafka.topic = flume-channel
+myagent.channels.mychannel.kafka.group.id = flume
+
+###############################################################################
+# Sink(s)
+############################################################################### 
+myagent.sinks.mysink.type = hdfs
+myagent.sinks.mysink.hdfs.path = hdfs://192.168.99.130:8020/flume/%{application}/%{logtype}/%Y-%m-%d
+myagent.sinks.mysink.hdfs.useLocalTimeStamp = true
+myagent.sinks.mysink.hdfs.fileType = DataStream
+myagent.sinks.mysink.hdfs.writeFormat = Text
+myagent.sinks.mysink.hdfs.round = true
+myagent.sinks.mysink.hdfs.rollInterval = 0
+myagent.sinks.mysink.hdfs.rollSize = 134217700
+myagent.sinks.mysink.hdfs.rollCount= 0
+
+###############################################################################
+# Assemble
+###############################################################################
+myagent.sources.mysource.channels = mychannel
+myagent.sinks.mysink.channel = mychannel
 ```
 
 #### (5) 启动
 
 ```bash
 flume-ng agent \
-     --name a1 \
-     --conf /opt/flume/conf \
-     --conf-file /opt/flume/agents/a1.conf \
-     -Dflume.root.logger=INFO,console
+     --name myagent \
+     --conf /var/lib/flume/conf \
+     --conf-file /var/lib/flume/myagent.conf
 ```
 
 #### (8) systemd
 
-`/etc/systemd/system/kafka.service`
+`/etc/systemd/system/flume.service`
 
 ```service
 [Unit]
-Description=Flume agent (a1)
+Description=Flume agent
 Documentation=https://flume.apache.org/
 Requires=network.target
 After=network.target
@@ -66,16 +94,23 @@ After=network.target
 User=root
 Group=root
 Type=simple
-EnvironmentFile=/etc/flume/flume.env
+Environment="JAVA_HOME=/var/lib/java8"
+Environment="HADOOP_HOME=/opt/hadoop"
 ExecStart=/var/lib/flume/bin/flume-ng agent \
-    --name a1 \
+    --name myagent \
     --conf /var/lib/flume/conf \
-    --conf-file /var/lib/flume/agents/a1.conf \
-    -Dflume.root.logger=INFO,console
+    --conf-file /var/lib/flume/myagent.conf
 KillSignal=15
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-注意: 在 `/etc/flume/flume.env` 中指定好 `JAVA_HOME`和`HADOOP_HOME`。
+#### (9) 高可用
+
+那就用`keepalived`吧。
+
+#### 参考
+
+* [logback-flume-appender](https://github.com/yingzhuo/logback-flume-appender)
+
