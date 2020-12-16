@@ -68,7 +68,7 @@ $ZOOKEEPER_HOME/bin/zkServer.sh start
 $ZOOKEEPER_HOME/bin/zkServer.sh status
 ```
 
-#### (5) 关闭JMS
+#### (5) 其他
 
 文件: `$ZOOKEEPER_HOME/conf/zookeeper-env.sh`
 
@@ -79,3 +79,20 @@ JMXPORT=4048
 JMXAUTH=false
 JMXSSL=false
 ```
+
+#### (6) 第三方WEB-UI
+
+```yaml
+version: "3.9"
+
+services:
+  zookeeper-navi:
+    image: "elkozmon/zoonavigator"
+    restart: unless-stopped
+    container_name: "zoonavigator"
+    network_mode: "host"
+    environment:
+      - "HTTP_PORT=9090"
+```
+
+通过浏览器访问即可。

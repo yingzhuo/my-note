@@ -118,3 +118,20 @@ ExecStop=/var/lib/zookeeper/bin/zkServer.sh stop
 [Install]
 WantedBy=multi-user.target
 ```
+
+#### (8) 第三方WEB-UI
+
+```yaml
+version: "3.9"
+
+services:
+  zookeeper-navi:
+    image: "elkozmon/zoonavigator"
+    restart: unless-stopped
+    container_name: "zoonavigator"
+    network_mode: "host"
+    environment:
+      - "HTTP_PORT=9090"
+```
+
+通过浏览器访问即可。
