@@ -28,6 +28,8 @@ sudo mkdir -p /etc/docker/certs.d/192.168.99.115
 sudo cp *.crt *.key /etc/docker/certs.d/192.168.99.115
 ```
 
+> 提示: 也可以使用`cfssl`工具实现自签名。
+
 #### 启动harbor
 
 ```bash
