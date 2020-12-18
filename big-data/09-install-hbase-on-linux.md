@@ -30,7 +30,7 @@ export HBASE_HOME=/var/lib/hbase
 export PATH=$PATH:HBASE_HOME/bin
 ```
 
-#### (5) 调整
+#### ~~(5) 调整~~
 
 ```bash
 rm -rf $HBASE_HOME/lib/client-facing-thirdparty/slf4j-log4j12-*.jar
@@ -93,8 +93,17 @@ localhost
 </configuration>
 ```
 
-#### (6) 启动
+#### (6) 启动 & 关闭
 
 ```bash
 $HBASE_HOME/bin/start-hbase.sh
+$HBASE_HOME/bin/stop-hbase.sh
+```
+
+#### (7) 高可用
+
+新增配置文件`$HBASE_HOME/conf/backup-masters`，内容如下:
+
+```txt
+10.211.55.4
 ```
