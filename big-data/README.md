@@ -12,3 +12,4 @@
 * [在Linux上安装Flume Agent](08-install-flume-on-linux.md)
 * [Flume配置文件模板](08-flume-agent-config-templates.md)
 * [在Linux上安装Hbase](09-install-hbase-on-linux.md)
+* [在Linux上安装Phoenix](09-install-phoenix-on-linux.md)
