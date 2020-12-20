@@ -1,4 +1,4 @@
-## 在Linux上安装
+## 在Linux上安装Phoenix
 
 #### (0) 参考前文，正常启动Hadoop/HBase
 

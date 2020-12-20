@@ -13,3 +13,4 @@
 * [Flume配置文件模板](08-flume-agent-config-templates.md)
 * [在Linux上安装Hbase](09-install-hbase-on-linux.md)
 * [在Linux上安装Phoenix](09-install-phoenix-on-linux.md)
+* [在Linux上安装Azkaban](10-install-azkaban-on-linux.md)
