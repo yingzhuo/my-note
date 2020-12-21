@@ -116,7 +116,7 @@ After=network.target
 Type=forking
 User=root
 Group=root
-Environment="JAVA_HOME=/var/lib/java8"
+EnvironmentFile=/etc/azkaban/azkaban.env
 WorkingDirectory=/opt/azkaban/web
 ExecStart=/opt/azkaban/web/bin/azkaban-web-start.sh
 ExecStop=/opt/azkaban/web/bin/azkaban-web-shutdown.sh
@@ -138,11 +138,20 @@ After=network.target
 Type=forking
 User=root
 Group=root
-Environment="JAVA_HOME=/var/lib/java8"
+EnvironmentFile=/etc/azkaban/azkaban.env
 WorkingDirectory=/opt/azkaban/executor
 ExecStart=/opt/azkaban/executor/bin/azkaban-executor-start.sh
 ExecStop=/opt/azkaban/executor/bin/azkaban-executor-shutdown.sh
 
 [Install]
 WantedBy=multi-user.target
+```
+
+**/etc/azkaban/azkaban.env**
+
+```text
+JAVA_HOME=/var/lib/java8
+HADOOP_HOME=/opt/hadoop
+HIVE_HOME=/opt/hive
+HBASE_HOME=/opt/hbase
 ```
