@@ -14,6 +14,13 @@ export SQOOP_HOME=/opt/sqoop
 export PATH=$PATH:$SQOOP_HOME/bin
 ```
 
+添加必要的依赖:
+
+在`$SQOOP_HOME/lib`下添加你需要的jar，常见的有:
+
+* jdbc-driver: 请从maven中央仓库下载
+* hive-common-x.x.x.jar: `$HIVE_HOME/lib/`下有
+
 #### (3) 调整配置
 
 `$SQOOP_HOME/conf/`

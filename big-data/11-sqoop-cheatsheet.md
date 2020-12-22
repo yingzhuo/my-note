@@ -101,3 +101,30 @@ sqoop import \
     --check-column id \
     --last-value 3
 ```
+
+#### 通过关系型数据库表创建hive表
+
+```bash
+sqoop create-hive-table \
+    --connect jdbc:mysql://10.211.55.3:3306/demo \
+    --username root \
+    --password root \
+    --table employee \
+    --hive-table default.ops_employee
+```
+
+#### 同步关系型数据库表导入(并创建)hive表 
+
+```bash
+sqoop import \
+    --connect jdbc:mysql://10.211.55.3:3306/demo \
+    --username root \
+    --password root \
+    --table employee \
+    --hive-import \
+    --hive-table default.ops_employee \
+    --null-string '\\N' \
+    --null-non-string '\\N' \
+    --hive-overwrite \
+    --num-mappers 1
+```
