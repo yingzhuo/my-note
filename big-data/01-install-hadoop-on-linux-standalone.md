@@ -90,22 +90,18 @@ vim $HADOOP_HOME/etc/hadoop/core-site.xml
         <value>30</value>
     </property>
 
-    <!-- 关闭权限检查 -->
-    <property>
-        <name>dfs.permissions.enabled</name>
-        <value>false</value>
-    </property>
-    <property>
-        <name>hadoop.proxyuser.<non-root-linux-user>.hosts</name>
-        <value>*</value>
-    </property>
-    <property>
-        <name>hadoop.proxyuser.<non-root-linux-user>.groups</name>
-        <value>*</value>
-    </property>
+    <!-- 代理用户 -->
     <property>
         <name>hadoop.http.staticuser.user</name>
-        <value><non-root-linux-user></value>
+        <value>用户名</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.用户名.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.用户名.groups</name>
+        <value>*</value>
     </property>
 </configuration>
 ```

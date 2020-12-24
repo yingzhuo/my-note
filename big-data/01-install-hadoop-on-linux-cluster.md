@@ -80,12 +80,18 @@ sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
         <name>hadoop.data.dir</name>
         <value>/var/data/hadoop</value> <!-- 务必按实际情况修改 -->
     </property>
+
+    <!-- 代理用户 -->
     <property>
-        <name>hadoop.proxyuser.hadoop.hosts</name>
+        <name>hadoop.http.staticuser.user</name>
+        <value>用户名</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.用户名.hosts</name>
         <value>*</value>
     </property>
     <property>
-        <name>hadoop.proxyuser.hadoop.groups</name>
+        <name>hadoop.proxyuser.用户名.groups</name>
         <value>*</value>
     </property>
 </configuration>
@@ -128,18 +134,6 @@ sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
     <property>
         <name>dfs.permissions.enabled</name>
         <value>false</value>
-    </property>
-    <property>
-        <name>hadoop.proxyuser.<non-root-linux-user>.hosts</name>
-        <value>*</value>
-    </property>
-    <property>
-        <name>hadoop.proxyuser.<non-root-linux-user>.groups</name>
-        <value>*</value>
-    </property>
-    <property>
-        <name>hadoop.http.staticuser.user</name>
-        <value><non-root-linux-user></value>
     </property>
 </configuration>
 ```
