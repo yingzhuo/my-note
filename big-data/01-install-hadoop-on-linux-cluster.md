@@ -129,6 +129,18 @@ sudo chown -R hadoop:hadoop $HADOOP_DATA_DIR
         <name>dfs.permissions.enabled</name>
         <value>false</value>
     </property>
+    <property>
+        <name>hadoop.proxyuser.<non-root-linux-user>.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.<non-root-linux-user>.groups</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value><non-root-linux-user></value>
+    </property>
 </configuration>
 ```
 

@@ -83,9 +83,29 @@ vim $HADOOP_HOME/etc/hadoop/core-site.xml
         <name>hadoop.tmp.dir</name>
         <value>/data/hadoop</value> <!-- 务必按实际情况修改 -->
     </property>
+
+    <!-- 默认值依然是30秒，此配置为了解决HIVE的bug -->
+    <property>
+        <name>dfs.client.datanode-restart.timeout</name>
+        <value>30</value>
+    </property>
+
+    <!-- 关闭权限检查 -->
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.<non-root-linux-user>.hosts</name>
+        <value>*</value>
+    </property>
+    <property>
+        <name>hadoop.proxyuser.<non-root-linux-user>.groups</name>
+        <value>*</value>
+    </property>
     <property>
         <name>hadoop.http.staticuser.user</name>
-        <value>hadoop</value>  <!-- linux's username -->
+        <value><non-root-linux-user></value>
     </property>
 </configuration>
 ```
