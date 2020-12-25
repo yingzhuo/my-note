@@ -35,9 +35,12 @@ cp ./hadoop-lzo-0.4.20.jar $HADOOP_HOME/share/hadoop/common
 
 重启hdfs和yarn。
 
-#### 常用脚本
+#### 测试
 
 ```bash
 # 生成lzo索引文件
-hadoop java $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.20.jar com.hadoop.compression.lzo.DistributedLzoIndexer /hdfs/path/to/big_file.lzo
+hadoop jar $HADOOP_HOME/share/hadoop/common/hadoop-lzo-0.4.20.jar com.hadoop.compression.lzo.DistributedLzoIndexer /hdfs/path/to/big_file.lzo
+
+# 对big_file.lzo执行 WordCount
+hadoop jar 
 ```
