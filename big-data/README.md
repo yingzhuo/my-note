@@ -5,6 +5,7 @@
 * hadoop
     * [在Linux上安装Hadoop (集群)](01-install-hadoop-on-linux-cluster.md)
     * [在Linux上安装Hadoop (伪分布)](01-install-hadoop-on-linux-standalone.md)
+    * [为Hadoop安装LZO压缩](01-install-lzo-on-hadoop.md)
 * zookeeper
     * [在Linux上安装Zookeeper (集群)](02-install-zookeeper-on-linux-cluster.md)
     * [在Linux上安装Zookeeper (单节点)](02-install-zookeeper-on-linux-standalone.md)
