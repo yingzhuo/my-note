@@ -1,7 +1,9 @@
 ## Flume配置文件模板
 
 ```conf
-
+###############################################################################
+# Basic
+###############################################################################
 myagent.sources = mysource
 myagent.channels = mychannel
 myagent.sinks = mysink
@@ -104,13 +106,17 @@ myagent.sinks.mysink.type = null
 # hdfs
 # ---
 myagent.sinks.mysink.type = hdfs
-myagent.sinks.mysink.hdfs.path = hdfs://xxx.xxx.xxx.xxx:8020/flume/%{application}/%{dir}/%Y-%m-%d
+myagent.sinks.mysink.hdfs.path = hdfs://xxx.xxx.xxx.xxx:xxxx/flume/%{application}/%Y-%m-%d
 myagent.sinks.mysink.hdfs.useLocalTimeStamp = true
 myagent.sinks.mysink.hdfs.fileType = DataStream
+# myagent.sinks.mysink.hdfs.fileType = CompressedStream
+# myagent.sinks.mysink.hdfs.codeC = lzop
+# myagent.sinks.mysink.hdfs.filePrefix = FlumeData
+# myagent.sinks.mysink.hdfs.fileSuffix = .lzo
 myagent.sinks.mysink.hdfs.writeFormat = Text
 myagent.sinks.mysink.hdfs.round = true
-myagent.sinks.mysink.hdfs.rollInterval = 0
-myagent.sinks.mysink.hdfs.rollSize = 134217700
+myagent.sinks.mysink.hdfs.rollInterval = 3600
+myagent.sinks.mysink.hdfs.rollSize = 134217728
 myagent.sinks.mysink.hdfs.rollCount= 0
 
 ###############################################################################
@@ -119,3 +125,7 @@ myagent.sinks.mysink.hdfs.rollCount= 0
 myagent.sources.mysource.channels = mychannel
 myagent.sinks.mysink.channel = mychannel
 ```
+
+#### 参考
+
+* [Flume官方文档](https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html)
