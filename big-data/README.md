@@ -11,6 +11,7 @@
     * [在Linux上安装Zookeeper (单节点)](02-install-zookeeper-on-linux-standalone.md)
 * hive
     * [基于Hadoop集群安装Hive服务](05-install-hive-on-linux.md)
+    * [Hive On Spark](05-hive-on-spark.md)
 * kafka
     * [在Linux上安装Kafka (集群)](06-install-kafka-on-linux-cluster.md)
 * flume
