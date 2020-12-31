@@ -106,18 +106,17 @@ myagent.sinks.mysink.type = null
 # hdfs
 # ---
 myagent.sinks.mysink.type = hdfs
-myagent.sinks.mysink.hdfs.path = hdfs://xxx.xxx.xxx.xxx:xxxx/flume/%{application}/%Y-%m-%d
+myagent.sinks.mysink.hdfs.path = hdfs://192.168.99.130:8020/%{application}/log/%{type}/%Y-%m-%d
 myagent.sinks.mysink.hdfs.useLocalTimeStamp = true
-myagent.sinks.mysink.hdfs.fileType = DataStream
-# myagent.sinks.mysink.hdfs.fileType = CompressedStream
-# myagent.sinks.mysink.hdfs.codeC = lzop
-# myagent.sinks.mysink.hdfs.filePrefix = FlumeData
-# myagent.sinks.mysink.hdfs.fileSuffix = .lzo
+myagent.sinks.mysink.hdfs.fileType = CompressedStream
+myagent.sinks.mysink.hdfs.codeC = lzop
+myagent.sinks.mysink.hdfs.fileSuffix = .lzo
 myagent.sinks.mysink.hdfs.writeFormat = Text
 myagent.sinks.mysink.hdfs.round = true
-myagent.sinks.mysink.hdfs.rollInterval = 3600
-myagent.sinks.mysink.hdfs.rollSize = 134217728
-myagent.sinks.mysink.hdfs.rollCount= 0
+myagent.sinks.mysink.hdfs.rollInterval = 600
+myagent.sinks.mysink.hdfs.rollSize = 268435456
+myagent.sinks.mysink.hdfs.rollCount = 0
+myagent.sinks.mysink.hdfs.timeZone = Asia/Shanghai
 
 ###############################################################################
 # Assemble

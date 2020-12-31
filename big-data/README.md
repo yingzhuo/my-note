@@ -16,6 +16,7 @@
     * [在Linux上安装Kafka (集群)](06-install-kafka-on-linux-cluster.md)
 * flume
     * [在Linux上安装Flume Agent](08-install-flume-on-linux.md)
+    * [Flume踩坑记录](08-flume-issue.md)
     * [Flume配置文件模板](08-flume-agent-config-templates.md)
     * [Flume自定义组件](08-custom-flume-component.md)
 * hbase
