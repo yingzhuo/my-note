@@ -85,6 +85,15 @@ export PATH=$PATH:$HIVE_HOME/bin
         <name>hive.execution.engine</name>
         <value>tez</value>
     </property>
+    <!-- 客户端设置 -->
+    <property>
+        <name>hive.cli.print.header</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hive.cli.print.current.db</name>
+        <value>true</value>
+    </property>
 </configuration>
 ```
 
