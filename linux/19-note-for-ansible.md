@@ -1,4 +1,4 @@
-## 在Linux上安装和设置ansible
+## Ansible学习笔记
 
 #### 安装
 
@@ -67,7 +67,7 @@ sudo apt-get install -y ansible sshpass
 #db-[99:101]-node.example.com
 
 #[ubuntu]
-#10.211.55.3 ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='133810'
+#10.211.55.3 ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='xxxxxx'
 ```
 
 #### 检查
@@ -75,3 +75,39 @@ sudo apt-get install -y ansible sshpass
 ```bash
 ansible all -m ping
 ```
+
+#### 常用模块
+
+##### (1) Shell模块
+
+##### (2) Script模块
+
+##### (3) Copy模块
+
+##### (4) Fetch模块
+
+##### (5) File模块
+
+##### (6) Unarchive模块
+
+##### (7) Archive模块
+
+##### (8) Hostname模块
+
+##### (9) Cron模块
+
+##### (10) Yum模块
+
+##### (11) Apt模块
+
+##### (12) Systemd模块
+
+##### (13) User模块
+
+##### (14) Group模块
+
+##### (15) Lineinfile模块
+
+##### (16) Replace模块
+
+##### (17) Setup模块

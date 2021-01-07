@@ -20,4 +20,4 @@
 * [在Linux上通过编译安装的方式安装zsh](16-install-zsh-by-sourcecode.md)
 * [在Linux上通过编译安装的方式安装redis](17-compile-redis-on-linux.md)
 * [在Linux上安装ganglia](18-install-ganglia-on-linux.md)
-* [在Linux上安装和设置ansible](19-install-and-setup-ansible-on-linux.md)
+* [Ansible学习笔记](19-note-for-ansible.md)
