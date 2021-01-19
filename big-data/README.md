@@ -29,5 +29,7 @@
     * [在Linux上安装Sqoop](11-install-sqoop-on-linux.md)
     * [Sqoop速查](11-sqoop-cheatsheet.md)
     * [Sqoop脚本模板](11-sqoop-shell-template.md)
+* kylin
+    * [在Linux上安装Kylin](12-install-kylin-on-linux.md)
 * activemq
     * [在Linux上安装ActiveMQ (集群)](07-install-activemq-on-linux-cluster.md)
