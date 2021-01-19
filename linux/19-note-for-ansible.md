@@ -22,52 +22,57 @@ sudo apt-get install -y ansible sshpass
 #### hosts模板
 
 ```text
-# This is the default ansible 'hosts' file.
-#
-# It should live in /etc/ansible/hosts
-#
-#   - Comments begin with the '#' character
-#   - Blank lines are ignored
-#   - Groups of hosts are delimited by [header] elements
-#   - You can enter hostnames or ip addresses
-#   - A hostname/ip can be a member of multiple groups
+[vm]
+10.211.55.3 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='133810'
 
-# Ex 1: Ungrouped hosts, specify before any group headers.
+# -------------------------------------------------------------------------------------------------
+# K8S集群
+# -------------------------------------------------------------------------------------------------
+[kubernetes]
+192.168.99.111 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.112 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.113 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.116 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.122 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.123 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.124 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.125 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+192.168.99.126 ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+[kubernetes:vars]
+ansible_python_interpreter=/usr/bin/python3
 
-#green.example.com
-#blue.example.com
-#192.168.100.1
-#192.168.100.10
+# -------------------------------------------------------------------------------------------------
+# 其他
+# -------------------------------------------------------------------------------------------------
+[builder]
+192.168.99.11[4:5] ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+[builder:vars]
+ansible_python_interpreter=/usr/bin/python3
 
-# Ex 2: A collection of hosts belonging to the 'webservers' group
+# -------------------------------------------------------------------------------------------------
+# zookeeper kafka flume
+# -------------------------------------------------------------------------------------------------
+[zoo]
+192.168.99.12[7:9] ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+[zoo:vars]
+ansible_python_interpreter=/usr/bin/python3
 
-#[webservers]
-#alpha.example.org
-#beta.example.org
-#192.168.1.100
-#192.168.1.110
+# -------------------------------------------------------------------------------------------------
+# hadoop hive hbase
+# -------------------------------------------------------------------------------------------------
+[hadoop]
+192.168.99.13[0:2] ansible_connection=ssh ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='x'
+[hadoop:vars]
+ansible_python_interpreter=/usr/bin/python3
 
-# If you have multiple hosts following a pattern you can specify
-# them like this:
-
-#www[001:006].example.com
-
-# Ex 3: A collection of database servers in the 'dbservers' group
-
-#[dbservers]
-#
-#db01.intranet.mydomain.net
-#db02.intranet.mydomain.net
-#10.25.1.56
-#10.25.1.57
-
-# Here's another example of host ranges, this time there are no
-# leading 0s:
-
-#db-[99:101]-node.example.com
-
-#[ubuntu]
-#10.211.55.3 ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass='xxxxxx'
+# -------------------------------------------------------------------------------------------------
+# ccae公司所有
+# -------------------------------------------------------------------------------------------------
+[ccae:children]
+kubernetes
+builder
+zoo
+hadoop
 ```
 
 #### 检查
