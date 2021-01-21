@@ -23,7 +23,7 @@ export PATH=$PATH:$SQOOP_HOME/bin
 
 #### (3) 调整配置
 
-`$SQOOP_HOME/conf/`
+`$SQOOP_HOME/conf/sqoop-env.sh`
 
 ```bash
 export JAVA_HOME=/var/lib/java8

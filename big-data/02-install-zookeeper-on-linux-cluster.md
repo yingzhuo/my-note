@@ -107,6 +107,8 @@ After=network.target
 
 [Service]
 Type=simple
+User=yingzhuo
+Group=yingzhuo
 Environment="JMXDISABLE=true"
 Environment="JMXLOCALONLY=false"
 Environment="JMXPORT=4048"
