@@ -33,3 +33,5 @@
     * [在Linux上安装Kylin](12-install-kylin-on-linux.md)
 * activemq
     * [在Linux上安装ActiveMQ (集群)](07-install-activemq-on-linux-cluster.md)
+* spark
+    * [在Linux上安装Spark (YARN)](13-install-spark-on-linux-yarn.md)
