@@ -8,15 +8,15 @@
 
 安装好zookeeper并保证其正常运行。参考:
 
-* [cluster](02-install-zookeeper-on-linux-cluster.md)
-* [standalone](02-install-zookeeper-on-linux-standalone.md)
+* [cluster](02-01-install-zookeeper-on-linux-cluster.md)
+* [standalone](02-02-install-zookeeper-on-linux-standalone.md)
 
 #### (3) 安装Hadoop集群
 
 安装好hadoop并保证其正常运行。参考:
 
-* [cluster](01-install-hadoop-on-linux-cluster.md)
-* [standalone](02-install-zookeeper-on-linux-standalone.md)
+* [cluster](01-01-install-hadoop-on-linux-cluster.md)
+* [standalone](02-02-install-zookeeper-on-linux-standalone.md)
 
 #### (4) 安装HBase
 

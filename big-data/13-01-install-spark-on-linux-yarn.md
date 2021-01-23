@@ -5,7 +5,7 @@ Spark Version: 2.4.7
 
 #### (1) 编译Spark
 
-请参考另外的[文章](05-hive-on-spark.md)
+请参考另外的[文章](05-02-hive-on-spark.md)
 
 #### (2) 安装Spark
 

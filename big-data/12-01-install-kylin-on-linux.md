@@ -20,7 +20,7 @@ export PATH=$PATH:$KYLIN_HOME/bin
 
 * 启动`hadoop-dfs`
 * 启动`hadoop-yarn`
-* 启动`hadoop-historyserver` 参考[这里](01-enable-historyserver.md)
+* 启动`hadoop-historyserver` 参考[这里](01-04-enable-historyserver.md)
 * 启动`hbase`
 
 #### 调整kylin启动脚本

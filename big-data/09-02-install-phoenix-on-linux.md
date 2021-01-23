@@ -4,9 +4,9 @@
 
 参考:
 
-* [hadoop-cluster](01-install-hadoop-on-linux-cluster.md)
-* [hadoop-standalone](02-install-zookeeper-on-linux-standalone.md)
-* [hbase-cluster](09-install-hbase-on-linux.md)
+* [hadoop-cluster](01-01-install-hadoop-on-linux-cluster.md)
+* [hadoop-standalone](02-02-install-zookeeper-on-linux-standalone.md)
+* [hbase-cluster](09-01-install-hbase-on-linux.md)
 
 #### (1) 安装python2.x版本
 
