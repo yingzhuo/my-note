@@ -2,4 +2,4 @@
 
 #### 目录
 
-* [利用蓝灯翻墙](01-lantern-for-term.md)
+* [命令行利用蓝灯翻墙](01-lantern-for-term.md)
