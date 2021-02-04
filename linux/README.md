@@ -13,7 +13,7 @@
 * [更改时区](09-change-timezone.md)
 * [在Linux上安装Jenkins](10-install-jekins-on-ubuntu.md)
 * [在Linux上安装MariaDB](11-install-mariadb-on-ubuntu.md)
-* [在Linux上安装MariaDB](12-install-mysql-on-ubuntu.md)
+* [在Linux上安装MySQL](12-install-mysql-on-ubuntu.md)
 * [ssh/rsync命令在Linux的运维小工具](13-ssh-andrsync-command-for-operation.md)
 * [CentOS设置阿里源](14-centos-change-ali-repo-source.md)
 * [CentOS设置静态IP](15-centos-set-static-ipaddr.md)
