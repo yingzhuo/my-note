@@ -7,4 +7,5 @@
 * [Kubernetes](k8s)
 * [Linux](linux)
 * [Python 3](python)
+* [Maven](maven)
 * [Other](other)
