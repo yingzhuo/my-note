@@ -1,6 +1,42 @@
 ## 常用maven插件
 
-#### 01-assembly
+#### 01-ant
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>3.0.0</version>
+    <executions>
+        <execution>
+            <id>post-pkg</id>
+            <phase>package</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <target>
+                    <copy todir="${project.build.directory}/docker-context/" force="true">
+                        <fileset dir="${project.basedir}/src/docker">
+                            <include name="**/*"/>
+                        </fileset>
+                        <fileset dir="${project.basedir}/target">
+                            <include name="${project.build.finalName}.jar"/>
+                        </fileset>
+                    </copy>
+                    <delete>
+                        <fileset dir="${project.basedir}/target/">
+                            <include name="*.jar*"/>
+                        </fileset>
+                    </delete>
+                </target>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+#### 02-assembly
 
 ```xml
 <!-- 打胖包 -->
